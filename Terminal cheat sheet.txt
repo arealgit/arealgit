@@ -1,0 +1,343 @@
+Shortcuts
+
+Auto-complete file and folder names
+Tab
+
+Go to the beginning of the line you're typing
+Ctrl + a
+
+Go to the end of the line
+Ctrl + e
+
+Clear the line before the cursor
+Ctrl + u
+
+Clear the line after the cursor
+Ctrl - k
+
+Delete the word before the cursor
+Ctrl + w
+
+Swap the last two characters before the cursor
+Ctrl + t
+
+Swap the last two words before the cursor
+Esc + t
+
+Clear the screen
+Ctrl + l
+
+Kill whatever you're running
+Ctrl + c
+
+Exit the current shell
+Ctrl + d
+
+Move cursor one word forward
+Option + ->
+
+Move cursor one word backward
+Option + <-
+
+Move cursor one character backward
+Ctrl + b
+
+Paste whatever was cut by the last command
+Ctrl + y
+
+Put a running command into a background process
+Ctrl + z
+
+Undo the last command
+Ctrl + _
+
+Search through previously used commands
+Ctrl + R
+
+Shows the previouscommands youv'e typed Add a number to limit to the last n items
+history n
+
+Execute the last command typed that starts with a value
+![value]
+
+Execute the last command typed
+!!
+
+Top level directory
+/
+
+Current directory
+.
+
+Parent directory
+..
+
+Home directory
+~
+
+Run command with the security privileges of super user
+sudo [command]
+
+Open the terminal editor
+nano [file]
+
+Open a file
+open [file]
+
+Get help
+[command] -h
+
+Show help manual of a command
+man [command]
+
+Home directory
+cd
+
+Change directory
+cd [folder]
+
+Home directory
+cd ~
+
+Root of the drive
+cd/
+
+Previous directory or folder you last browsed
+cd -
+
+Show your working directory
+pwd
+
+Move up to the parent diretory
+cd..
+
+Move up two levels
+cd../..
+
+List files and subdirectories in the current directory
+ls
+
+Force multi-column output of the list
+ls -C
+
+List all entries including those with periods and double periods
+ls -a
+
+Output the list of files in one entry per line format
+ls -1
+
+Display a slash after each path that is a directory, an asterisk after executables or scripts and an @ sign after symbolic links
+ls -F
+
+Sort files or entries by size
+ls -S
+
+List in a long format
+ls -l
+
+List the files sorted by time modified
+ls -lt
+
+Long listning with human readble file sizes
+ls -lh
+
+List the file names with size, owner, and flags
+ls -lo
+
+List detailed directory contents, including hidden files
+ls -la
+
+List usage for each subdirectory and it's contents
+du
+
+Human readable output of all files in a directory
+du -sh [folder]
+
+Display an entry for each specified file
+du -s
+
+List files and folders, totaling the size including the subfolders. Replace sk* with sm* 
+du -sk* | sort -nr
+
+Calculate your systems's free disk space
+df -h
+
+Calculate free disk space in powers of 1000 (instead of 1024)
+df -H
+
+Create a new folder named <dir>
+mkdir <dir>
+
+Create nested folders
+mkdir -p <dir1>/<dir2>
+
+Create several folders at once
+mkdir <dir1> <dir2> <dir3>
+
+Create a folder with a space in the filename
+mkdir "<dir>"
+
+Delete a folder (folder must be empty)
+rmdir <dir>
+
+Delete a folder and its contents
+rm -R <dir>
+
+Create a new fie without any extension
+touch <file>
+
+Copy a file to a directory
+cp <file> <dir>
+
+Copy a file to the current directory
+cp <file> <newfile>
+
+Copy a file to the folder and rename the copied file
+cp <file>~/<dir>/<newfile>
+
+Copy a folder to a new folder with spaces in the filename
+cp -R <dir> <"new dir">
+
+Prompts you before copying a file with a warning overwrite message
+cp -i <file> <dir>
+
+Copy multiple files to a folder
+cp <file1> <file2> <file3>/Users/<dir>
+
+Delete a file
+rm <file>
+
+Delete a file after confirmation
+rm -i <file>
+
+Delete a file without confirmation
+rm -f <file>
+
+Delete multiple files without confirmation
+rm <file1> <file2> <file3>
+
+Move or rename a file
+mv <file <newfilename>
+
+Movea file to the folder, possibly overwrite existing file
+mv <file> <dir>
+
+Move a file to the folder, prompt for confirmation
+mv -i <file> <dir>
+
+Move all PNG files from current folder to a different folder
+mv *.png ~/<dir>
+
+Display the default permissions for a home directory
+ls -ld
+
+Display the read, rwrite, and access permission of a particular folder
+ls -ld/<dir>
+
+Change the permission of a file to 755
+chmod 755 <file>
+
+Change the permission of a directory and its contents to 600
+chmod -R 600 <dir>
+
+Change the ownership of a file to user and group. Add -R to include folder contents
+chown <user>:<group> <file>
+
+Output currently running processes. -a for all users and x for those that are not connected with the Terminal
+ps -ax 
+
+Shows all the processes with %cpu, %mem, page in, PID, and command
+ps-aux
+
+Display live information about currently running processes
+top
+
+Display processes sorted by CPU usage, updating every 5 seconds
+top -ocpu -s 5
+
+Sort top by memory usage
+top -o rsize
+
+Quit process with ID <PID>
+kill <PID>
+
+Find a process by name or PID
+ps -ax | grep <appname>
+
+Ping host and display status
+ping <host>
+
+Output whois info for domain
+whois <domain>
+
+Download file via http, https, or ftp
+curl -O
+
+Establish SSH connection to <host> with user <username>
+ssh <username>@<host>
+
+Copy <file> to a remote <host>
+scp <file> <user>@<host>:/remote/path
+
+Check brew for potential probems
+brew doctor
+
+Install a formula
+brew install <formula>
+
+Uninstall a formula
+brew uninstall <formula>
+
+List all installed formulas
+brew list
+
+Display available formulas for brewing
+brew search
+
+Upgrade all outdated and unpinned brews
+brew upgrade
+
+Upgrade all outdated and unpinned brews
+brew update
+
+Remove older version of installed formula
+brew cleanup
+
+Tap the cask repository from GitHub
+brew tap homebrew/cask
+
+List all installed casks
+brew cask list
+
+Install the given task
+brew cask install <cask>
+
+Uninstall the given cask
+brew cask uninstall <cask>
+
+Find all files named <file> inside <dir>. Use wildcards * to search for parts of filenames
+find <dir> -name <"file">
+
+Output all occurrences of <text> inside <file> (add -i for case insensitivity)
+grep "<text>" <file>
+
+Search for all files containing <text> inside <dir>
+grep -rl "<text>" <dir>
+
+Output the content of <file>
+cat <file>
+
+Output the contents of <file> using the less command that supports pagination and more
+less <file>
+
+Output the first 10 lines of <file>
+head <file>
+
+Appends the output of <cmd> to <file>
+<cmd> > > <file>
+
+Direct the output of <cmd> into <file>
+<cmd> > <file>
+
+Direct the output of <cmd1> to <cmd2>
+<cmd1> | <cmd2>
