@@ -1,0 +1,48 @@
+Shortcuts
+
+Auto-complete file and folder names
+Tab
+
+Go to the beginning of the line you're typing
+Ctrl + a
+
+Go to the end of the line
+Ctrl + e
+
+Clear the line before the cursor
+Ctrl + u
+
+Clear the line after the cursor
+Ctrl - k
+
+Delete the word before the cursor
+Ctrl + w
+
+Swap the last two characters before the cursor
+Ctrl + t
+
+Swap the last two words before the cursor
+Esc + t
+
+Clear the screen
+Ctrl + l
+
+Kill whatever you're running
+Ctrl + c
+
+Exit the current shell
+Ctrl + d
+
+Move cursor one word forward
+Option + ->
+
+Move cursor one word backward
+Option + <-
+
+Move cursor one character backward
+Ctrl + b
+
+Paste whatever was cut by the last command
+Ctrl + y
+
+
