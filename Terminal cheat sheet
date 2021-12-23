@@ -45,4 +45,35 @@ Ctrl + b
 Paste whatever was cut by the last command
 Ctrl + y
 
+Put a running command into a background process
+Ctrl + z
 
+Undo the last command
+Ctrl + _
+
+Top level directory
+/
+
+Current directory
+.
+
+Parent directory
+..
+
+Home directory
+~
+
+Run command with the security privileges of super user
+sudo [command]
+
+Open the terminal editor
+nano [file]
+
+Open a file
+open [file]
+
+Get help
+[command] -h
+
+Show help manual of a command
+man [command]
