@@ -331,7 +331,10 @@ Output the contents of <file> using the less command that supports pagination an
 less <file>
 
 Output the first 10 lines of <file>
-head <file>
+head -n 10 <file>
+
+Output the last 10 lines of <file>
+tail -n 10 <file>
 
 Appends the output of <cmd> to <file>
 <cmd> > > <file>
@@ -341,3 +344,22 @@ Direct the output of <cmd> into <file>
 
 Direct the output of <cmd1> to <cmd2>
 <cmd1> | <cmd2>
+
+Search contents of all files
+locate <text>
+
+Update database of files
+sudo updatedb
+
+Who is logged on and what are they doing
+w
+
+system load average
+tload
+
+static process list
+ps
+
+dynamic process list
+top
+
