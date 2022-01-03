@@ -1,0 +1,12 @@
+New-MsolGroup -DisplayName “Contoso_Sales” -Description “Contoso Sales team users”
+
+Get-MsolGroup
+
+$group = Get-MsolGroup | Where-Object {$_.DisplayName -eq "Contoso_Sales"}
+
+
+$user = Get-MsolUser | Where-Object {$_.DisplayName -eq “Cody Godinez”}
+
+Add-MsolGroupMember -GroupObjectId $group.ObjectId -GroupMemberType "User" -GroupMemberObjectId $user.ObjectId
+
+Get-MsolGroupMember -GroupObjectId $group.ObjectId
