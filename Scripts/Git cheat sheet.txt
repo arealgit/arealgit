@@ -133,3 +133,7 @@ git push [alias] [branch]
 
 Downloads bookmark history and incorporates changes
 git pull
+
+
+Show all registered remote repositories
+git remote -v
