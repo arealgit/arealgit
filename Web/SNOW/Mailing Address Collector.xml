@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<unload unload_date="2021-10-19 20:56:07">
+<sp_widget action="INSERT_OR_UPDATE">
+<category>custom</category>
+<client_script><![CDATA[function($scope,spUtil) {
+
+	var c = this;
+	console.log($scope);
+	
+	c.submitted = false;
+	c.address = {};
+	
+$scope.location = {
+ name: 'location'
+};
+		
+	$scope.$on("field.change", function(evt, parms) {
+		if (parms.field.name == 'location')
+			c.data.setLocation = parms.newValue;
+
+		c.server.update().then(function(response) {
+			spUtil.update($scope);
+			$scope.submitAnswer();
+		})
+	});
+	
+	
+	$scope.submitAnswer = function() {
+		if (!c.data.firstname || !c.data.lastname || !c.data.loc.street || !c.data.loc.city || !c.data.loc.state || !c.data.loc.zip || !c.data.loc.country) {
+			return;
+		} else {
+			c.submitted = true;
+			var address = c.data.firstname + ' ' + c.data.lastname + '\n' + c.data.loc.street + '\n' + c.data.loc.city + ', ' + c.data.loc.state + ', ' + c.data.loc.zip + ', ' + c.data.loc.country;
+			try {
+				$scope.page.g_form.setValue('delivery_address_collector', address);
+			} catch(err) {
+				console.log("No such variable found")
+			} }
+	}
+
+	$scope.deleteAnswer = function() {
+		c.submitted = false;
+		c.address = {};
+		
+		try {
+		$scope.page.g_form.clearValue('delivery_address_collector');
+		} catch(err) {
+				console.log("No such variable found")
+				}
+		
+		$('#location').val(null).trigger("change")
+		
+		c.data.setLocation = '';
+		c.server.update().then(function(response) {
+			spUtil.update($scope);
+		});
+		
+	}
+													 
+	
+}
+]]></client_script>
+<controller_as>c</controller_as>
+<css>
+
+label {
+    padding-top: 5px;
+}
+
+#city,#stateprovince {
+ width: 90%
+}
+
+
+#block1,#block2,#block3 {
+  display: inline-block;
+}
+</css>
+<data_table>sp_instance</data_table>
+<demo_data/>
+<description/>
+<docs display_value=""/>
+<field_list/>
+<has_preview>true</has_preview>
+<id/>
+<internal>false</internal>
+<link/>
+<name>Address Collector</name>
+<option_schema/>
+<public>false</public>
+<roles/>
+<script><![CDATA[	data.loc = {};
+	data.loc.sys_id = '';
+	data.loc.name = '';
+
+var locationSysId = "";
+	
+	if (input.setLocation && input.setLocation != '') {
+		locationSysId = input.setLocation;
+	
+	var gr = new GlideRecord('cmn_location');
+	gr.get(locationSysId);
+	data.loc = {};
+	$sp.getRecordDisplayValues(data.loc, gr, 'sys_id,name,street,city,state,zip,country');	
+	}
+
+if (input.setLocation && input.setLocation == '') {
+		locationSysId = '';
+		data.loc = {};
+		}]]></script>
+<servicenow>false</servicenow>
+<sys_class_name>sp_widget</sys_class_name>
+<sys_created_by>Anthony.Sheculski-ad</sys_created_by>
+<sys_created_on>2019-06-14 20:52:12</sys_created_on>
+<sys_customer_update>false</sys_customer_update>
+<sys_id>9788f8651b8eff0008ca62007e4bcb45</sys_id>
+<sys_mod_count>806</sys_mod_count>
+<sys_name>Address Collector</sys_name>
+<sys_package display_value="Global" source="global">global</sys_package>
+<sys_policy/>
+<sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+<sys_scope display_value="Global">global</sys_scope>
+<sys_update_name>sp_widget_9788f8651b8eff0008ca62007e4bcb45</sys_update_name>
+<sys_updated_by>Anthony.Sheculski-ad</sys_updated_by>
+<sys_updated_on>2021-02-17 16:33:51</sys_updated_on>
+<template><![CDATA[<div class="panel-group">
+
+<div class="panel panel-body">
+  Select a CLEAResult office to auto-populate the Delivery Address form, or input a home address.
+  <br>
+  <sn-record-picker id="location" field="location" table="'cmn_location'" display-field="'name'" display-fields="'street,city,state,zip,country'" value-field="'sys_id'" search-fields="'name'" page-size="100" ng-readonly="c.submitted"></sn-record-picker>
+
+  </div>
+
+<div class="panel panel-primary">
+ <div class="panel-heading">Delivery Address</div>
+  <div class="panel-body">
+    <form>
+      <div class="form-group col-sm-6">
+        <label class="control-label" for="firstname">Firstname</label>
+        <input id="firstname" class="form-control" type="text" placeholder="" ng-model="c.data.firstname" required ng-readonly="c.submitted"/>
+      </div>
+
+      <div class="form-group col-sm-6">
+        <label class="control-label" for="lastname">Lastname</label>
+        <input  id="lastname" class="form-control" type="text" placeholder="" ng-model="c.data.lastname" required ng-readonly="c.submitted"/>
+      </div>
+
+      <div class="form-group col-sm-12">
+        <label class="control-label" for="address1">Address Line 1</label>
+        <input field='address1' id="address1" class="form-control" type="text" placeholder="123 Main Street" ng-model="c.data.loc.street" required ng-readonly="c.submitted"/>
+      </div>      
+      
+      <div class="form-group col-sm-4">
+        <label class="control-label" for="city">City</label>
+        <input id="city" class="form-control" type="text" placeholder="{{c.data.loc.city}}" ng-model="c.data.loc.city" required ng-readonly="c.submitted"/>
+      </div>
+
+      <div class="form-group col-sm-4">
+        <label class="control-label" for="stateprovince">State / Province</label>
+        <input id="stateprovince" class="form-control" type="text" placeholder="" ng-model="c.data.loc.state" required ng-readonly="c.submitted"/>
+      </div>
+
+      <div class="form-group col-sm-4">
+        <label class="control-label" for="zippost">Zip / Postal Code</label>
+        <input id="zippost" class="form-control" type="text" placeholder="" ng-model="c.data.loc.zip" required ng-readonly="c.submitted"/>
+      </div>
+      
+
+      <div class="form-group col-sm-4">
+        <label class="control-label" for="country">Country</label>
+        <input id="country" class="form-control" type="text" placeholder="" ng-model="c.data.loc.country" required ng-readonly="c.submitted"/>
+      </div>
+
+      <div class="col-sm-12">
+        <button ng-if="!c.submitted" type='submit' class="btn btn-primary" ng-click="submitAnswer()" >
+          Submit
+        </button>
+           
+        <button ng-if="c.submitted" type='submit' class="btn btn-primary" ng-click="deleteAnswer()" >
+          Delete
+        </button>
+      </div>
+      
+   </form>
+  </div>
+</div>
+</div>]]></template>
+</sp_widget>
+</unload>

@@ -1,0 +1,6 @@
+
+#Get all group policy objects
+Get-GPO –All | Export-Csv "c:\temp\GroupPolicy\GPOs.csv -NoTypeInformation"
+
+#Get a report of each group policy object
+Get-GPOReport -domain <domain> -all "c:\temp\GroupPolicy\GPOreport.xml"

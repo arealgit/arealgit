@@ -1,0 +1,2 @@
+#Get all listening network ports UDP and TCP
+netstat -aon

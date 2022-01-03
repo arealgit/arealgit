@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<unload unload_date="2021-11-16 21:10:04">
+<sp_widget action="INSERT_OR_UPDATE">
+<category>custom</category>
+<client_script><![CDATA[function() {
+  var c = this;
+	c.viewFilter = 'open';
+	
+	c.changeView = function() {
+		c.server.get({
+					action: "change_view",
+					view: c.viewFilter,
+					search_text: c.filterText
+				}).then(function(response){
+					c.data = response.data;
+				});
+	}
+	
+	c.search = function() {
+		c.server.get({
+			action: 'search',
+			search_text: c.filterText,
+			view: c.viewFilter
+		}).then(function(response){
+					c.data = response.data;
+				});
+	}
+	
+	c.checkEnter = function(event) {
+		if (event.which === 13)
+			c.search();
+	}
+	
+	c.loadMore = function() {
+		c.fetching = true;
+		c.server.get({
+			action: 'fetch_more',
+			lastLimit: c.data.lastLimit,
+			view: c.viewFilter,
+			search_text: c.filterText
+		}).then(function(response){
+					c.data = response.data;
+					c.fetching = false;
+				});
+	}
+	
+	c.toggleVariables = function() {
+		alert('test');
+	}
+}]]></client_script>
+<controller_as>c</controller_as>
+<css>.panel-heading {
+  position: relative;
+  &gt; .fa-filter { 
+    position: absolute;
+    top: 1rem; 
+    right: 1rem; 
+  }
+}
+
+.panel {
+  &gt; .list-group, &gt;.panel-collapse{
+    	.list-group-item {
+		  	border-width: 1px 0 0 0;
+      }
+  }
+}
+
+.btn-show-more {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+}
+
+.ritm-primary {
+  
+}
+
+    .red-font{
+        color: red;
+    }</css>
+<data_table>sp_instance</data_table>
+<demo_data/>
+<description/>
+<docs display_value=""/>
+<field_list/>
+<has_preview>true</has_preview>
+<id>clr_my_tickets_4</id>
+<internal>false</internal>
+<link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+<name>CLR My Tickets 4</name>
+<option_schema>[{"name":"title","section":"Presentation","default_value":"My Tickets","label":"Title","type":"string"},{"name":"show_view","section":"Behavior","default_value":"true","label":"Show View","type":"boolean"},{"hint":"Number of items per page","name":"items_per_page","section":"Behavior","default_value":"15","label":"Items per page","type":"integer"}]</option_schema>
+<public>false</public>
+<roles/>
+<script><![CDATA[(function() {
+	
+	var alsoRequest = false;
+	
+	var localInput = input; //to safeguard pollution of 'input' via BR or other scripts
+	
+	data.filterMsg = gs.getMessage("Search open requests");
+	
+	if (localInput && localInput.view === 'open')
+		data.filterMsg = gs.getMessage("Search open requests");
+	else if (localInput && localInput.view === 'close')
+		data.filterMsg = gs.getMessage("Search closed requests");
+
+	function getField(gr, name) {
+			var f = {};
+			var id = gr.getUniqueValue();
+			gr = new GlideRecord(gr.getRecordClassName());
+			gr.get(id);
+			f.display_value = gr.getDisplayValue(name);
+			f.value = gr.getValue(name);
+			var ge = gr.getElement(name);
+		  if (ge) {
+				var ed = ge.getED();
+				if (ed)
+					f.type = ed.getInternalType();
+				f.label = ge.getLabel();
+			}
+			return f;
+	}
+
+	function getMyRequestSysIds() {
+		var ids = {};
+		var rq_filter = new GlideRecord('request_filter');
+		rq_filter.addActiveQuery();
+		if (rq_filter.isValidField('applies_to'))
+			rq_filter.addQuery('applies_to', 1).addOrCondition('applies_to', 10);
+		rq_filter.query();
+		while(rq_filter.next()) {
+			var tableName = rq_filter.table_name;
+			if (rq_filter.isValidField('table'))
+				tableName = rq_filter.table;
+			var gr = new GlideRecord(tableName);
+			gr.addQuery(rq_filter.filter);
+			gr.query();
+			if (tableName == 'sc_request')
+				alsoRequest = true;
+			while(gr.next()) {
+				var portalSettings = {};
+				portalSettings.page = rq_filter.portal_page.nil()? '' : rq_filter.portal_page.getDisplayValue() + '';
+				portalSettings.primary_display = rq_filter.primary_display.nil()? '': rq_filter.primary_display + '';
+				portalSettings.secondary_displays = rq_filter.secondary_display.nil()? '': rq_filter.secondary_display + '';
+				ids[gr.sys_id + ''] = portalSettings;
+			}
+		}
+		return ids;
+	}
+	
+	// retrieve the request's
+	var myRequestMap = getMyRequestSysIds();
+	var taskIDs = Object.keys(myRequestMap);
+
+	var gr = new GlideRecordSecure('task');
+	if (localInput && localInput.view === 'open') 
+		gr.addActiveQuery();
+	else if (localInput && localInput.view === 'close')
+		gr.addQuery('active', 0);
+	else
+		gr.addActiveQuery();
+
+	gr.orderByDesc('sys_updated_on');
+	if (localInput && localInput.search_text) {
+			var req = [];
+			var task = new GlideRecordSecure('task');
+			task.addQuery('123TEXTQUERY321', localInput.search_text);
+			if (localInput && localInput.view === 'open') 
+				task.addQuery('active', 1);
+			else if (localInput && localInput.view === 'close')
+				task.addQuery('active', 0);
+			else
+				task.addQuery('active', 1);
+			task.addQuery('sys_id', taskIDs);
+			task.query();
+
+			while(task.next())
+				req.push(task.getUniqueValue());
+		
+			if (alsoRequest) {
+				var ritmGR = new GlideRecord('sc_req_item');
+				if (localInput && localInput.view === 'open') 
+					ritmGR.addQuery('request.active', 1);
+				else if (localInput && localInput.view === 'close')
+					ritmGR.addQuery('request.active', 0);
+				else
+					ritmGR.addQuery('request.active', 1);
+				ritmGR.addQuery('123TEXTQUERY321', localInput.search_text);
+				ritmGR.addQuery('request.sys_id', taskIDs);
+				ritmGR.query();
+				while(ritmGR.next())
+					req.push(ritmGR.getValue('request'));
+			}
+			gr.addQuery('sys_id', req);
+		}
+		else 
+			gr.addQuery('sys_id', taskIDs);
+	gr.query();
+
+	data.request = {};
+
+	data.request.req_list = [];
+	var recordIdx = 0;	
+	var limit = options.items_per_page? options.items_per_page : 15;
+	if (localInput && localInput.action == 'fetch_more')
+		data.lastLimit = localInput.lastLimit + limit;
+	else
+		data.lastLimit = limit;
+
+	data.hasMore = false;
+	while (recordIdx != data.lastLimit && gr.next()) {
+		var portalSettings = myRequestMap[gr.getUniqueValue()];
+		if (typeof portalSettings == 'undefined')
+			portalSettings = {};
+
+		var record = {};
+		record.sys_id = gr.getValue('sys_id');
+		
+		
+if (gr.getRecordClassName() == 'incident') {
+	var inc = new GlideRecord("incident");
+	inc.get(gr.getUniqueValue());
+	record.table = "incident";
+	record.number = gr.getValue('number');
+	record.opened_by = gr.getDisplayValue('opened_by');
+	record.caller_id = inc.getDisplayValue('caller_id');
+	record.short_description = inc.getValue('short_description');
+	record.description = inc.getValue('description');
+}
+		if (gr.getRecordClassName() == 'sc_request') {
+				record.table = 'sc_request';
+				record.number = gr.getValue('number');
+				var ritm = new GlideRecord("sc_req_item");
+				ritm.addQuery("request", gr.getUniqueValue());
+				ritm.query();
+
+				if (ritm.getRowCount() == 0)
+					continue;
+			
+				if (ritm.getRowCount() > 1) {
+					record.ritm_count = gs.getMessage("{0} requested items", ritm.getRowCount())
+					record.ritms = [];
+					while (ritm.next()) {
+					var item = {};
+					item.number = ritm.getDisplayValue("number");
+					item.stage = ritm.getDisplayValue("stage");
+					item.short_description = ritm.getDisplayValue("short_description");
+					item.opened_by = ritm.getDisplayValue("opened_by");
+					item.opened_for = ritm.getDisplayValue("opened_for");
+					item.variables = new GlobalServiceCatalogUtil().getVariablesForTask(ritm, true);
+					item.state = ritm.getDisplayValue('state');
+					record.ritms.push(item);
+					}
+				}						
+				else {
+					record.ritm_count = "1 requested item";
+					ritm.next();
+					record.ritm_number = ritm.getDisplayValue("number");
+					record.ritm_short_description = ritm.getDisplayValue("short_description");
+					record.stage = ritm.getDisplayValue("stage");
+					record.opened_by = "Opened by " + ritm.getDisplayValue("opened_by");
+					record.opened_for = ritm.getDisplayValue("opened_for");
+					record.variables = new GlobalServiceCatalogUtil().getVariablesForTask(ritm, true);
+					var taskGR2 = new GlideRecord('task');
+					taskGR2.addQuery('number',record.ritm_number);
+					taskGR2.query();
+					record.state = taskGR2.getDisplayValue("state");
+				}
+				record.url = { id: portalSettings.page? portalSettings.page: 'sc_request', table: 'sc_request', sys_id: record.sys_id};
+		} else {
+				record.display_field = portalSettings.primary_display ? getField(gr, portalSettings.primary_display).display_value : getField(gr, 'number').display_value;
+				record.url = { id: portalSettings.page? portalSettings.page :'ticket', table: gr.getRecordClassName(), sys_id: record.sys_id};
+		}
+		if (portalSettings.secondary_displays) {
+			record.secondary_displays = [];
+			portalSettings.secondary_displays.split(",").forEach(function (sDisplay){
+				record.secondary_displays.push(getField(gr, sDisplay));
+			});
+		}
+		else 
+			record.secondary_displays = getField(gr, 'short_description');
+		
+		record.updated_on = gr.getValue('sys_updated_on');
+		record.created_on = gr.getValue('sys_created_on').split(' ')[0];
+		record.state = gr.getDisplayValue('state');
+		if((recordIdx !== 0) && (data.lastLimit - limit === recordIdx))
+			record.highlight = true;
+
+		data.request.req_list.push(record);
+		recordIdx++;
+	}
+
+	if (gr.next())
+			data.hasMore = true;
+})();]]></script>
+<servicenow>false</servicenow>
+<sys_class_name>sp_widget</sys_class_name>
+<sys_created_by>Anthony.Sheculski-ad</sys_created_by>
+<sys_created_on>2021-08-25 19:39:35</sys_created_on>
+<sys_customer_update>false</sys_customer_update>
+<sys_id>2cecbb331b0a38d066d6c91e1e4bcbf6</sys_id>
+<sys_mod_count>253</sys_mod_count>
+<sys_name>CLR My Tickets 4</sys_name>
+<sys_package display_value="Global" source="global">global</sys_package>
+<sys_policy/>
+<sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+<sys_scope display_value="Global">global</sys_scope>
+<sys_update_name>sp_widget_2cecbb331b0a38d066d6c91e1e4bcbf6</sys_update_name>
+<sys_updated_by>Anthony.Sheculski-ad</sys_updated_by>
+<sys_updated_on>2021-11-16 20:14:01</sys_updated_on>
+<template><![CDATA[<div class="panel panel-default b">
+ <div class="panel-heading" >
+    <h2 class="panel-title">{{c.options.title}}</h2>
+  </div> 	
+  <div class="panels-container list-group">
+			<div class="list-group-item row" style="margin:0px;border-top:0px;" >
+        	<div class="col-md-5" style="">
+            <div class="input-group">
+            </div>
+          </div>
+          <div class="col-md-3 col-xs-5" style="">
+            <div class="form-inline" ng-if="c.options.show_view == 'true'">
+            	<label class="control-label hidden-xs" for="view">${View}</label>
+              <select ng-model="c.viewFilter" id="view" class="sc-basic-select" ng-change="c.changeView()" style="width:80%">
+                <option value="open" selected="true">${Open}</option>
+                <option value="close">${Closed}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-4 col-xs-7" style="">
+            <div class="input-group" style="width:100%">
+              <input ng-model="c.filterText" ng-keypress="c.checkEnter($event)"class="form-control" style="width:100%" placeholder="{{data.filterMsg}}" aria-label="{{data.filterMsg}}">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="button" ng-click="c.search()" title="${Search}" aria-label="${Search}">
+                	<i class="fa fa-search"></i>
+                </button>
+              </span>
+            </div><!-- /input-group -->
+              
+          </div>
+    	</div>
+    	<div ng-if="c.data.request.req_list.length == 0 && !c.filterText" class="panel-body panels-container">
+        ${You do not have any requests} 
+      </div>
+    	<div ng-if="c.data.request.req_list.length == 0 && c.filterText" class="panel-body panels-container">
+        ${Search didn't match any requests} 
+      </div>
+    	<div class="list-group-item row" ng-repeat="item in c.data.request.req_list | limitTo: c.data.lastLimit track by item.sys_id" style="margin:0px" >
+        
+        <div class="col-xs-6 padder-l-none padder-r-none main-column">
+        <div class="primary-display">
+          
+        <a href="?id={{::item.url.id}}&table={{::item.url.table}}&sys_id={{::item.url.sys_id}}" sn-focus="{{::item.highlight}}"><span>{{item.number}} {{item.short_description}}</span></a>
+        </div>
+        
+        
+        <small class="text-muted" >
+          <span>Created on {{item.created_on}}</span><br>
+          <div ng-if="item.table == 'incident'">
+            <div class="card-body">
+              <label>Status: </label><span ng-class="{'red-font':item.state == 'Awaiting User Input'}">{{item.state}}</span><br>
+              <label class="m-t-xs m-b-none text-muted"><b>Submitter :</b></label>
+              <div>{{item.opened_by}}<span ng-if="item.opened_by != item.caller_id">for {{item.caller_id}}</span></div>
+             
+              <label class="m-t-xs m-b-none text-muted"><b>Description :</b></label>
+                       
+              
+              <div>{{item.description}}</div>
+            </div>
+          </div>
+
+          <div ng-if="item.table == 'sc_request'">
+            <div class="heading">
+              {{item.ritm_count}}{{display_field}}
+            </div><br>
+
+
+ 
+            <div ng-if="!item.ritms"class="card">
+              <strong>{{item.ritm_number}}</strong><br>
+              <span>{{item.ritm_short_description}}</span><br>
+              <span>Stage: {{item.stage}}</span><br>
+              <label>Status: </label><span ng-class="{'red-font':item.state == 'Additional Information Required'}">{{item.state}}</span>
+            </div>
+            
+            <div ng-if="item.ritms" ng-repeat="x in item.ritms" class="card">
+              <strong>{{x.number}}</strong><br>
+        <span>{{x.short_description}}</span><br>
+              <span>Stage: {{x.stage}}</span><br>
+              <label>Status:</label><span ng-class="{'red-font':x.state == 'Additional Information Required'}">{{x.state}}</span>
+              <!--variables-->
+            <div ng-if="x.variables.length > 0" ng-init="variable_toggle=false">
+              <a href="javascript:void(0)" ng-click="variable_toggle = !variable_toggle" style="display:flex;align-items:center;" ng-style="c.setColor();">
+                <span class="glyphicon"
+                      ng-class="{'glyphicon-chevron-down': !variable_toggle, 'glyphicon-chevron-up': variable_toggle}">
+                </span>
+                ${Options}
+              </a>
+              <div ng-repeat="variable in x.variables" ng-if="variable_toggle">
+                <div ng-if="variable.display_value != ''">
+                  <label class="m-t-xs m-b-none text-muted"><b>{{::variable.label}}</b></label>
+                  <div ng-if="!variable.multi_row">{{::variable.display_value}}</div>
+                </div>
+                <div ng-if="variable.multi_row">
+                  <a href="javascript:void(0)" uib-popover-template="'sp_multirow_vs_summarizer.html'" popover-title="{{variable.label}}"
+                     popover-placement="auto right" popover-append-to-body="true" popover-trigger="outsideClick">${Click to view}</a>
+                </div>
+              </div>
+            </div>
+            <!--end variable--> <br>
+               </div>
+            
+                        
+    
+            <!--variables-->
+            <div ng-if="item.variables.length > 0" ng-init="variable_toggle=false">
+              <a href="javascript:void(0)" ng-click="variable_toggle = !variable_toggle" style="display:flex;align-items:center;" ng-style="c.setColor();">
+                <span class="glyphicon"
+                      ng-class="{'glyphicon-chevron-down': !variable_toggle, 'glyphicon-chevron-up': variable_toggle}">
+                </span>
+                ${Options}
+              </a>
+              <div ng-repeat="variable in item.variables" ng-if="variable_toggle">
+                <div ng-if="variable.display_value != ''">
+                  <label class="m-t-xs m-b-none text-muted"><b>{{::variable.label}}</b></label>
+                  <div ng-if="!variable.multi_row">{{::variable.display_value}}</div>
+                </div>
+                <div ng-if="variable.multi_row">
+                  <a href="javascript:void(0)" uib-popover-template="'sp_multirow_vs_summarizer.html'" popover-title="{{variable.label}}"
+                     popover-placement="auto right" popover-append-to-body="true" popover-trigger="outsideClick">${Click to view}</a>
+                </div>
+              </div>
+            </div>
+            <!--end variable-->
+          </div>
+        </small>
+        </div>       
+        
+         
+        	<div class="col-xs-3 padder-l-none padder-r-none state-column">
+            <div class="state">
+              <span> {{::item.state}}</span>
+            
+   
+            </div>
+        	</div>
+         	<div class="col-xs-3 padder-l-none padder-r-none updated-column">
+            <div class="updated">
+              <i class="fa fa-clock-o" aria-hidden="true" title="${Updated}"></i>
+              <sn-time-ago timestamp="::item.updated_on"/>
+            </div>
+          </div>   
+      </div>
+    	<div class="col-sm-12" ng-if="c.data.hasMore" style="padding:15px">
+					<div class="text-a-c" ng-if="c.fetching">
+          	<i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+						<span class="sr-only">${Loading...}</span>  
+  	      </div>
+          <button class="btn btn-danger btn-show-more" ng-click="c.loadMore()"> ${Show More} </button>  
+      </div>
+  </div>
+
+</div>]]></template>
+</sp_widget>
+</unload>
