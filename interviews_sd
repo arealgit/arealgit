@@ -1,0 +1,43 @@
+Interviewing
+ITSM and Customer Service
+
+1.	Have you ever used a 'ticketing' system for IT Service Management? If so which and can you tell me a bit about how you used it? 
+
+[prompt] We use ServiceNow are you familiar with this platform?
+
+If never, how was work managed at their previous workplace and how well were their methods successful? 
+
+2.	Can you tell me about a time when you have had to work with members of other IT teams to resolve a major incident or problem? 
+
+3.	Have you ever had to escalate a difficult issue and what would that process have looked like?   
+
+4.	How would you describe excellent IT support? 
+
+[prompt] Have you ever had to get technical support from a company? What did they do well? What did they do poorly? 
+IT Support
+
+1.	The Service Desk at CLEAResult must often provide remote support. Have you supported a remote user base and which remote support tools would you have used most to troubleshoot? 
+
+[prompt] We use Bomgar by Beyond Support. It provides (more) functionality like auto-escalation, file transfer, cmd line, multi monitor support, etc. The Service Desk uses this tool most often to connect to a user's computer to provide troubleshooting.  Do you feel like you are comfortable learning new technologies? 
+
+
+2.	Have you used Teams, Slack, Discord, Zoom, etc to collaborate? What do you like about these apps or what don't you like? 
+
+[further prompt] Most of our internal comms are emails (Outlook) and IM (Teams). We're using Teams for most communication internally. We also run a call center using Teams. I think a lot of business with our clients is done by email, so Outlook is a commonly used app. What kind of support have you provided for Outlook? 
+
+
+3.	What kind of troubleshooting have you had to provide for phones, tablets, MacOS and/or other UNIX or LINIX OSs? How were your mobile devices managed?
+
+4.	Can you tell me about a tricky Microsoft Windows 10 issue you had to troubleshoot?
+
+5.	Can you tell me about a tricky Microsoft Office 365 issue you had to troubleshoot? 
+
+6.	What kind of issues can clearing a browser’s browsing data fix? (history, cookies, cache)
+
+7.	What's a VPN? 
+
+8.	What's CRM and can you name a platform or two? 
+
+9.	 What is SSO? 
+
+10.	 Have you ever supported a virtual environment?
