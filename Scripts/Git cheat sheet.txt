@@ -137,3 +137,19 @@ git pull
 
 Show all registered remote repositories
 git remote -v
+
+
+# This makes sure that your new branch is based on master
+git checkout master
+# This creates the new branch
+git checkout -b my-new-branch
+
+
+# Get all of the latest from upstream for all branches
+git fetch upstream
+# Now make sure you're on master - the main branch for this project
+git checkout master
+# Merge in the changes from upstream (note: this commits locally)
+git merge upstream/master
+# And then push those to your fork on GitHub
+git push
