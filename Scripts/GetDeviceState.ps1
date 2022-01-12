@@ -9,8 +9,8 @@ Runs dsregcmd with the status switch and parses the string output to return a ds
 Get-DeviceState | Where-Object {$_.AzureAdJoined -eq 'True'}
 #>
 
-function Get-DeviceState {
-    [PSCustomObject]$DeviceState
+function Get-DeviceState() {
+    $DeviceState = New-Object PSObject
     $Status = dsregcmd /status
     $AADjoined = $Status | Select-String "AzureAdJoined"
     $EnterpriseJoined = $Status | Select-String "EnterpriseJoined"
@@ -19,22 +19,29 @@ function Get-DeviceState {
     $DeviceName = $Status | Select-String "Device Name" | Out-String
 
     if($AADjoined -match "YES") {
-        [bool]$DeviceState.AzureAdJoined = 1
-        } else {[bool]$DeviceState.AzureAdJoined = 0}
+        Add-Member -InputObject $DeviceState -MemberType NoteProperty -Name AzureADJoined -Value $true
+        } else {
+            Add-Member -InputObject $DeviceState -MemberType NoteProperty -Name AzureADJoined -Value $false
+            }
 
     if($EnterpriseJoined -match "YES") {
-        [bool]$DeviceState.EnterpriseJoined = 1
-        } else {[bool]$DeviceState.EnterpriseJoined = 0}
+        Add-Member -InputObject $DeviceState -MemberType NoteProperty -Name EnterpriseJoined -Value $true
+        } else {
+            Add-Member -InputObject $DeviceState -MemberType NoteProperty -Name EnterpriseJoined -Value $false
+            }
 
     if($DomainJoined -match "YES") {
-        [bool]$DeviceState.DomainJoined = 1
+        Add-Member -InputObject $DeviceState -MemberType NoteProperty -Name DomainJoined -Value $true
         } else {
-        [bool]$DeviceState.DomainJoined = 0
-        }
+            Add-Member -InputObject $DeviceState -MemberType NoteProperty -Name DomainJoined -Value $false
+            }
 
     if($DomainName) {
-        [string]$DeviceState.DomainName = $DomainName.Trim().TrimStart("DomainName : ")
+        Add-Member -InputObject $DeviceState -MemberType NoteProperty -Name DomainName -Value $DomainName.Trim().TrimStart("DomainName : ")
         }
 
-    $DeviceState.DeviceName = $DeviceName.Trim().TrimStart('Device Name : ')
+    Add-Member -InputObject $DeviceState -MemberType NoteProperty -Name DeviceName -Value $DeviceName.Trim().TrimStart('Device Name : ')
+
+    Return $DeviceState
     }
+ 
