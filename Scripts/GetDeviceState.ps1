@@ -40,7 +40,7 @@ function Get-DeviceState() {
         Add-Member -InputObject $DeviceState -MemberType NoteProperty -Name DomainName -Value $DomainName.Trim().TrimStart("DomainName : ")
         }
 
-    Add-Member -InputObject $DeviceState -MemberType NoteProperty -Name DeviceName -Value $DeviceName.Trim().TrimStart('Device Name : ')
+    Add-Member -InputObject $DeviceState -MemberType NoteProperty -Name DeviceName -Value ($DeviceName.Trim() -replace "Device Name : ",'')
 
     Return $DeviceState
     }
