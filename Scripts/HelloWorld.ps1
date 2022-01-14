@@ -1,4 +1,4 @@
-function Printvalue($value1){
-Write-Output "Value is : $value1"
+function Printvalue($value){
+Write-Output "Value is : $value"
 }
 Printvalue "Hello World"
