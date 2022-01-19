@@ -1,0 +1,20 @@
+<sp-attachment-button></sp-attachment-button>
+
+<span ng-if="data.task_active">
+  
+  <div ng-if="data.canRead" class="panel panel-{{options.color}} b">
+
+
+
+    <div class="panel-heading padder-b-none">
+      <h2 class="h4 sp-attachments-header panel-title pull-left">
+        ${Attachments}
+      </h2>
+      <div ng-if="::(data.canWrite && data.canAttach)">
+        <sp-attachment-button></sp-attachment-button>
+      </div>
+      <div class="clearfix"></div>
+
+
+
+    </div>
