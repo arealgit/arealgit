@@ -1,9 +1,6 @@
-<sp-attachment-button></sp-attachment-button>
-
-<span ng-if="data.task_active">
 <div ng-if="data.canRead" class="panel panel-{{options.color}} b">
-<div class="panel-heading padder-b-none">
-  <h2 class="h4 sp-attachments-header panel-title pull-left">
+  <div class="panel-heading padder-b-none">
+    <h2 class="h4 sp-attachments-header panel-title pull-left">
       ${Attachments}
     </h2>
     <div ng-if="::(data.canWrite && data.canAttach)">
@@ -11,3 +8,31 @@
     </div>
     <div class="clearfix"></div>
   </div>
+
+  <!-- small device - hide body unless there are attachments -->
+  <div class="panel-body" ng-class="{'hidden-xs': !hasAttachments()}">
+    <div ng-if="data.canWrite && data.canAttach" ng-file-drop="dropFiles($files)" ng-multiple="true" class="sp-attachments">
+      <div ng-if="::data.canDragAndDrop" class="sp-no-attachments text-center text-italic text-muted" ng-show="!hasAttachments()">
+        <em class="sp-drop-area">${Drop files here}</em>
+      </div>
+      <div ng-if="::!data.canDragAndDrop" class="sp-no-attachments text-center text-muted" ng-show="!hasAttachments()">
+        <em>{{::data.noAttachmentsMsg}}</em>
+      </div>
+      <now-attachments-list template="sp_attachment" />
+    </div>
+
+    <div ng-if="!data.canWrite || !data.canAttach" class="sp-attachments">
+      <div class="sp-no-attachments text-center text-muted" ng-show="!hasAttachments()">
+        <em>{{::data.noAttachmentsMsg}}</em>
+      </div>
+      <now-attachments-list template="sp_attachment" />
+    </div>
+  </div>
+
+  <!-- no attachments msg at phone size when can't write -->
+  <div class="panel-body visible-xs-block" ng-if="!hasAttachments() && (!data.canWrite || !data.canAttach)">
+    <div class="sp-no-attachments text-center text-muted">
+      <em>{{::data.noAttachmentsMsg}}</em>
+    </div>
+  </div>
+</div>
