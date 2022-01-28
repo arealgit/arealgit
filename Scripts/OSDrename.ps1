@@ -1,11 +1,10 @@
-$OperatingSystem = Get-WmiObject -class Win32_OperatingSystem | Select-Object -property caption -ExpandProperty caption
+$OperatingSystem = Get-WmiObject -class Win32_OperatingSystem | Select-Object -Property Caption -ExpandProperty Caption
+$Chassis = Get-WmiObject win32_systemenclosure | select-object -expandproperty chassistypes
+$SerialNumber = Get-WmiObject -Class Win32_BIOS | Select-Object -Property SerialNumber -ExpandProperty SerialNumber
+
 switch ($OperatingSystem) {
     "Microsoft Windows 10 Enterprise" {$OperatingSystemCode = "X"}
 }
-
-$SerialNumber = (Get-WmiObject -Class Win32_BIOS | Select-Object SerialNumber).SerialNumber
-
-$Chassis = Get-WmiObject win32_systemenclosure | select-object -expandproperty chassistypes
 
 switch ($Chassis)
 {
@@ -19,8 +18,6 @@ switch ($Chassis)
 9 { $ChassisCode = "L"}
 10 { $ChassisCode = "L"}
 }
-
-
 
 $OSDComputerName = "CR-" + $OperatingSystemCode + $ChassisCode + $SerialNumber
 
