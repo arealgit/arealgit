@@ -1,7 +1,11 @@
+$OperatingSystem = Get-WmiObject -class Win32_OperatingSystem | Select-Object -property caption -ExpandProperty caption
+switch ($OperatingSystem) {
+    "Microsoft Windows 10 Enterprise" {$OperatingSystemCode = "X"}
+}
+
 $SerialNumber = (Get-WmiObject -Class Win32_BIOS | Select-Object SerialNumber).SerialNumber
 
 $Chassis = Get-WmiObject win32_systemenclosure | select-object -expandproperty chassistypes
-$ChassisCode = ""
 
 switch ($Chassis)
 {
@@ -16,6 +20,8 @@ switch ($Chassis)
 10 { $ChassisCode = "L"}
 }
 
-$OSDComputerName = "CR-" + $ChassisCode + $SerialNumber
+
+
+$OSDComputerName = "CR-" + $OperatingSystemCode + $ChassisCode + $SerialNumber
 
 Rename-Computer -ComputerName $env:computername -NewName $OSDComputerName
