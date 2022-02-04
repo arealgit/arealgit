@@ -1,0 +1,64 @@
+<div class="panel panel-default b">
+    <div class="panel-heading" >
+      <h2 class="panel-title">{{c.options.title}}</h2>
+    </div> 	
+    <div class="panels-container list-group">
+      
+      <div ng-if="c.data.request.req_list.length == 0 && !c.filterText" class="panel-body panels-container">
+        ${You do not have any requests} 
+      </div>
+      <div ng-if="c.data.request.req_list.length == 0 && c.filterText" class="panel-body panels-container">
+        ${Search didn't match any requests} 
+      </div>
+  
+  
+      <div class="list-group-item row" ng-repeat="item in c.data.request.req_list | limitTo: c.data.lastLimit track by item.sys_id" style="margin:0px" >
+        <div class="col-xs-12 padder-l-none padder-r-none main-column">
+  
+          <div class="primary-display">
+            <a href="?id={{::item.url.id}}&table={{::item.url.table}}&sys_id={{::item.url.sys_id}}" target="_self" sn-focus="{{::item.highlight}}"> {{::item.secondary_displays[0].display_value}} </a>
+          </div>
+  
+          <small class="text-muted">
+            <div ng-if="!item.multiItem" class="secondary-display">
+              <span>{{::item.display_field.number}}</span>
+              <span> • </span>
+              <span>{{::item.display_field.title}}</span>
+              <span> • </span>
+              <sn-time-ago timestamp="::item.created_on"/>
+  
+  
+            </div>      
+          </small>
+  
+          <small class="text-muted">
+            <div ng-if="item.multiItem" ng-repeat="x in item.display_field" class="secondary-display">
+              <span>{{::x.number}}</span>
+              <span> • </span>
+              <span>{{::x.title}}</span>
+              <span> • </span>
+              <sn-time-ago timestamp="::item.created_on"/>
+  
+            </div>      
+          </small>
+  
+  
+  
+  
+        </div>
+       
+      </div>
+      <div class="col-sm-12" ng-if="c.data.hasMore" style="padding:15px">
+        <div class="text-a-c" ng-if="c.fetching">
+          <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+          <span class="sr-only">${Loading...}</span>  
+        </div>
+      </div>
+      
+    </div>
+    <div class="panel-footer" ng-if="c.data.request.req_list.length > c.options.items_per_page">
+        <div class="h4 number-shown-label">First {{c.options.items_per_page}} of {{c.data.request.req_list.length}}</div>
+        <a class="pull-right" ng-href="/sp?id=my_requests_2">${View all}</a>
+      </div>
+  
+  </div>
