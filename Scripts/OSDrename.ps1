@@ -21,4 +21,5 @@ switch ($Chassis)
 
 $OSDComputerName = "CR-" + $OperatingSystemCode + $ChassisCode + $SerialNumber
 
-Rename-Computer -ComputerName $env:computername -NewName $OSDComputerName
+Rename-Computer -ComputerName $env:computername -NewName $OSDComputerName -Force
+
