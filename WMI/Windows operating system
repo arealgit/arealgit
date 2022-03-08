@@ -1,0 +1,7 @@
+Win32_Processor.AddressWidth	true	
+		Win32_ComputerSystem.Manufacturer	true	
+		Win32_ComputerSystem.Model	true	
+		Win32_ComputerSystem.UserName	true	
+		Win32_OperatingSystem.Version	true	
+		Win32_OperatingSystem.CSDVersion	true	
+		Win32_OperatingSystem.Description

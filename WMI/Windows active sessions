@@ -1,0 +1,2 @@
+Win32_OperatingSystem.Name	true	
+		HKEY_LOCAL_MACHINE/SYSTEM/CurrentControlSet/Services/Tcpip/Parameters/Hostname

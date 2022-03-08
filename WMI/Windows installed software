@@ -1,0 +1,36 @@
+HKEY_LOCAL_MACHINE/Software/Microsoft/Windows/CurrentVersion/Installer/UserData/*/Products/*/InstallProperties/InstallDate	true	
+		HKEY_LOCAL_MACHINE/Software/Wow6432Node/Microsoft/Windows/CurrentVersion/Installer/UserData/*/Products/*/InstallProperties/InstallDate	true	
+		HKEY_LOCAL_MACHINE/Software/Wow6432Node/Microsoft/Windows/CurrentVersion/Uninstall/*/InstallDate	true	
+		HKEY_LOCAL_MACHINE/Software/Microsoft/Internet Explorer/Registration/ProductId	true	
+		HKEY_LOCAL_MACHINE/Software/Wow6432Node/Microsoft/Windows/CurrentVersion/Installer/UserData/*/Products/*/InstallProperties/DisplayName	true	
+		HKEY_LOCAL_MACHINE/Software/Wow6432Node/Microsoft/Windows/CurrentVersion/Installer/UserData/*/Products/*/InstallProperties/DisplayVersion	true	
+		HKEY_LOCAL_MACHINE/Software/Wow6432Node/Microsoft/Windows/CurrentVersion/Installer/UserData/*/Products/*/InstallProperties/ProductID	true	
+		HKEY_LOCAL_MACHINE/Software/Wow6432Node/Microsoft/Windows/CurrentVersion/Installer/UserData/*/Products/*/InstallProperties/Publisher	true	
+		HKEY_LOCAL_MACHINE/Software/Wow6432Node/Microsoft/Windows/CurrentVersion/Uninstall/*/DisplayName	true	
+		HKEY_LOCAL_MACHINE/Software/Wow6432Node/Microsoft/Windows/CurrentVersion/Uninstall/*/DisplayVersion	true	
+		HKEY_LOCAL_MACHINE/Software/Wow6432Node/Microsoft/Windows/CurrentVersion/Uninstall/*/ParentDisplayName	true	
+		HKEY_LOCAL_MACHINE/Software/Wow6432Node/Microsoft/Windows/CurrentVersion/Uninstall/*/Publisher	true	
+		HKEY_LOCAL_MACHINE/Software/Wow6432Node/Microsoft/Windows/CurrentVersion/Uninstall/*/UninstallString	true	
+		HKEY_LOCAL_MACHINE/Software/Wow6432Node/Microsoft/Office/*/Registration/*/DigitalProductID	true	
+		HKEY_LOCAL_MACHINE/Software/Wow6432Node/Microsoft/Office/*/Registration/*/ProductID	true	
+		HKEY_LOCAL_MACHINE/Software/Microsoft/Internet Explorer/Version	true	
+		HKEY_LOCAL_MACHINE/Software/Microsoft/Windows/CurrentVersion/Uninstall/*/ParentDisplayName	true	
+		HKEY_USERS/*/SOFTWARE/Adobe/Adobe Acrobat/DC/AVEntitlement/iEntitlementLevel	true	
+		HKEY_LOCAL_MACHINE/Software/Microsoft/Windows NT/CurrentVersion/ProductId	true	
+		HKEY_LOCAL_MACHINE/Software/Microsoft/Windows/CurrentVersion/Component Based Servicing/Packages/Package_*_KB*/InstallName	true	
+		HKEY_LOCAL_MACHINE/Software/Microsoft/Windows/CurrentVersion/Uninstall/*/InstallDate	true	
+		HKEY_LOCAL_MACHINE/Software/Microsoft/Internet Explorer/svcVersion	true	
+		Win32_OperatingSystem.Caption	true	
+		HKEY_LOCAL_MACHINE/Software/Microsoft/Windows/CurrentVersion/Installer/UserData/*/Products/*/InstallProperties/Publisher	true	
+		HKEY_LOCAL_MACHINE/Software/Microsoft/Windows/CurrentVersion/Installer/UserData/*/Products/*/InstallProperties/ProductID	true	
+		HKEY_LOCAL_MACHINE/Software/Microsoft/Windows/CurrentVersion/Installer/UserData/*/Products/*/InstallProperties/DisplayName	true	
+		HKEY_LOCAL_MACHINE/Software/Microsoft/Windows/CurrentVersion/Installer/UserData/*/Products/*/InstallProperties/DisplayVersion	true	
+		HKEY_LOCAL_MACHINE/Software/Microsoft/Windows/CurrentVersion/ProductId	true	
+		HKEY_LOCAL_MACHINE/Software/Microsoft/Windows NT/CurrentVersion/DigitalProductID	true	
+		HKEY_LOCAL_MACHINE/Software/Microsoft/Office/*/Registration/*/ProductID	true	
+		HKEY_LOCAL_MACHINE/Software/Microsoft/Office/*/Registration/*/DigitalProductID	true	
+		HKEY_LOCAL_MACHINE/Software/Microsoft/Windows/CurrentVersion/Uninstall/*/DisplayName	true	
+		HKEY_LOCAL_MACHINE/Software/Microsoft/Windows/CurrentVersion/Uninstall/*/DisplayVersion	true	
+		HKEY_LOCAL_MACHINE/Software/Microsoft/Windows/CurrentVersion/Uninstall/*/Publisher	true	
+		HKEY_LOCAL_MACHINE/Software/Microsoft/Windows/CurrentVersion/Uninstall/*/UninstallString	true	
+		Win32_OperatingSystem.Version

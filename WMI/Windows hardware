@@ -1,0 +1,6 @@
+Win32_SystemEnclosure.ChassisTypes	true	
+		Win32_ComputerSystemProduct.IdentifyingNumber	true	
+		Win32_ComputerSystemProduct.UUID	true	
+		Win32_BaseBoard.SerialNumber	true	
+		Win32_SystemEnclosure.SerialNumber	true	
+		Win32_BIOS.SerialNumber

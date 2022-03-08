@@ -1,0 +1,19 @@
+Win32_Processor.NumberOfLogicalProcessors	true	
+		Win32_Processor.NumberOfCores	true	
+		Win32_PhysicalMemory.BankLabel	true	
+		Win32_PhysicalMemory.DataWidth	true	
+		Win32_PhysicalMemory.FormFactor	true	
+		Win32_PhysicalMemory.DeviceLocator	true	
+		Win32_PhysicalMemory.Manufacturer	true	
+		Win32_PhysicalMemory.PartNumber	true	
+		Win32_PhysicalMemory.SerialNumber	true	
+		Win32_PhysicalMemory.Speed	true	
+		Win32_PhysicalMemory.Status	true	
+		Win32_PhysicalMemory.TotalWidth	true	
+		Win32_PhysicalMemory.MemoryType	true	
+		Win32_PhysicalMemory.TypeDetail	true	
+		Win32_PhysicalMemory.Tag	true	
+		Win32_PhysicalMemory.Capacity	true	
+		Win32_Processor.Name	true	
+		Win32_Processor.MaxClockSpeed	true	
+		Win32_Processor.Manufacturer
