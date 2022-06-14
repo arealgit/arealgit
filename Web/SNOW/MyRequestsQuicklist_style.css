@@ -1,0 +1,40 @@
+.panel-heading {
+    position: relative;
+    border-width: 0 0 0 0;
+    > .fa-filter { 
+      position: absolute;
+      top: 1rem; 
+      right: 1rem;
+      
+    }
+  }
+  
+  .panel {
+    > .list-group, >.panel-collapse{
+          .list-group-item {
+                border-width: 1px 0 0 0;
+        }
+    }
+  }
+  
+  .btn-show-more {
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+  }
+  
+  
+  .panel-footer {
+    .number-shown-label {
+      margin-top: 0;
+      margin-bottom: 0;
+      font-size: 16px;
+      display: inline-block;
+    }
+  
+    a {
+      color: inherit;
+    }
+  }
+  
+  

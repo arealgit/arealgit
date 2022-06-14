@@ -1,0 +1,13 @@
+#Install RSAT Windows Capabilities 
+
+[bool]$RsatCapabilityInstalled = 0 
+
+function Get-RsatCapability {
+
+If (Get-WindowsCapability -Online | Where-Object {$_.State -eq 'Installed' -and $_Name -contains 'RSAT'}) {
+    $RsatCapabilityInstalled = 1
+    } else {
+        Get-WindowsCapability -Name 'RSAT*' -Online | Add-WindowsCapability –Online
+        }
+}
+ 

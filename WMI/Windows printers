@@ -1,0 +1,5 @@
+Win32_Printer.Name	true	
+		Win32_Printer.DeviceID	true	
+		Win32_Printer.PortName	true	
+		Win32_TCPIPPrinterPort.Name	true	
+		Win32_TCPIPPrinterPort.HostAddress	true

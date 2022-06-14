@@ -1,0 +1,6 @@
+sudo ipconfig set en0 DHCP
+
+ipconfig getpacket en0
+
+ifconfig -a
+

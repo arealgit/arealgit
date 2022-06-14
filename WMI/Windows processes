@@ -1,0 +1,9 @@
+Win32_Process.Caption	true	
+		Win32_Process.CommandLine	true	
+		Win32_Process.CreationDate	true	
+		Win32_Process.Description	true	
+		Win32_Process.ExecutablePath	true	
+		Win32_Process.Name	true	
+		Win32_Process.ParentProcessId	true	
+		Win32_Process.ProcessId	true	
+		Win32_Process.Priority

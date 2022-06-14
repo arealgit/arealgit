@@ -1,0 +1,2 @@
+$adcomputer = $env:computername
+ Invoke-Command -ComputerName txaus1dc03.clearesult.com -ScriptBlock {Import-Module ActiveDirectory ; Get-ADComputer "cr-9j2jvt2" }

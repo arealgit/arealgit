@@ -1,0 +1,17 @@
+root\virtualization\v2\Msvm_ComputerSystem.Name	true	
+		HKEY_LOCAL_MACHINE/SYSTEM/CurrentControlSet/Services/Tcpip/Parameters/Domain	true	
+		HKEY_LOCAL_MACHINE/SYSTEM/CurrentControlSet/Services/Tcpip/Parameters/Hostname	true	
+		root\MSCluster\MSCluster_Resource.PrivateProperties	true	
+		root\MSCluster\MSCluster_Resource.Name	true	
+		root\MSCluster\MSCluster_Node.Name	true	
+		root\MSCluster\MSCluster_Cluster.Name	true	
+		root\MSCluster\MSCluster_ClusterToResource.GroupComponent	true	
+		root\MSCluster\MSCluster_ClusterToResource.PartComponent	true	
+		root\MSCluster\MSCluster_ClusterToNode.Antecedent	true	
+		root\MSCluster\MSCluster_ClusterToNode.Dependent	true	
+		root\virtualization\Msvm_ComputerSystem.Name	true	
+		root\MSCluster\MSCluster_Resource.Type	true	
+		Win32_ComputerSystem.Domain	true	
+		Win32_ComputerSystem.Name	true	
+		Win32_OperatingSystem.Caption	true	
+		Win32_OperatingSystem.Version

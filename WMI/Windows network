@@ -1,0 +1,14 @@
+Win32_IP4RouteTable.Destination	true	
+		Win32_IP4RouteTable.Mask	true	
+		Win32_NetworkAdapterConfiguration.DefaultIPGateway	true	
+		Win32_IP4RouteTable.NextHop	true	
+		Win32_NetworkAdapterConfiguration.Caption	true	
+		Win32_NetworkAdapterConfiguration.IPAddress	true	
+		Win32_NetworkAdapterConfiguration.IPSubnet	true	
+		Win32_NetworkAdapterConfiguration.MACAddress	true	
+		Win32_NetworkAdapterConfiguration.DHCPEnabled	true	
+		Win32_NetworkAdapterConfiguration.Index	true	
+		Win32_NetworkAdapterConfiguration.IPEnabled	true	
+		Win32_NetworkAdapter.NetConnectionID	true	
+		Win32_NetworkAdapter.Manufacturer	true	
+		Win32_NetworkAdapter.Index

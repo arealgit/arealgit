@@ -1,0 +1,11 @@
+Win32_Service.Name	true	
+		Win32_Service.PathName	true	
+		Win32_Service.State	true	
+		Win32_Service.DisplayName	true	
+		Win32_Service.StartName	true	
+		Win32_Service.ServiceType	true	
+		Win32_Service.ProcessId	true	
+		Win32_Service.AcceptPause	true	
+		Win32_Service.AcceptStop	true	
+		Win32_Service.DesktopInteract	true	
+		Win32_Service.StartMode

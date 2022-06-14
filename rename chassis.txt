@@ -1,0 +1,91 @@
+Create a unique name for your devices. Names must be 15 characters or less, and can contain letters (a-z, A-Z), numbers (0-9), and hyphens. Names must not contain only numbers. Names cannot include a blank space. Use the %SERIAL% macro to add a hardware-specific serial number. Alternatively, use the %RAND:x% macro to add a random string of numbers, where x equals the number of digits to add.
+
+
+his value comes from the Type member of the System Enclosure or Chassis structure in the SMBIOS information.
+
+This property is inherited from CIM_Chassis.
+
+
+Other (1)
+
+
+Unknown (2)
+
+
+Desktop (3)
+
+
+Low Profile Desktop (4)
+
+
+Pizza Box (5)
+
+
+Mini Tower (6)
+
+
+Tower (7)
+
+
+Portable (8)
+
+
+Laptop (9)
+
+
+Notebook (10)
+
+
+Hand Held (11)
+
+
+Docking Station (12)
+
+
+All in One (13)
+
+
+Sub Notebook (14)
+
+
+Space-Saving (15)
+
+
+Lunch Box (16)
+
+
+Main System Chassis (17)
+
+
+Expansion Chassis (18)
+
+
+SubChassis (19)
+
+
+Bus Expansion Chassis (20)
+
+
+Peripheral Chassis (21)
+
+
+Storage Chassis (22)
+
+
+Rack Mount Chassis (23)
+
+
+Sealed-Case PC (24)
+
+
+Tablet (30)
+
+
+Convertible (31)
+
+
+Detachable (32)
+
+CreationClassName
+
+Data type: string

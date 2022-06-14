@@ -1,0 +1,1 @@
+dism.exe /Online /Cleanup-image /Restorehealth
