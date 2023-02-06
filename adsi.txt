@@ -1,6 +1,0 @@
-$Description = "my test computer"
-
-$ComputerDn = ([ADSISEARCHER]"sAMAccountName=$($env:COMPUTERNAME)$").FindOne().Path
-        $ADComputer = [ADSI]$ComputerDn
-        $ADComputer.description = $Description
-        $ADComputer.SetInfo()
